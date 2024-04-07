@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="crudApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS CRUD App</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body ng-controller="MainController">
+    <div class="container">
+
+        <h1>AngularJS CRUD App</h1>
+
+        Add New Item Form
+        <form ng-submit="addItem()" name="addItemForm" novalidate>
+            <input type="text" placeholder="Name" ng-model="newItemName" required>
+            <input type="text" placeholder="Description" ng-model="newItemDescription" required>
+            <button type="submit" ng-disabled="addItemForm.$invalid">Add Item</button>
+        </form>
+
+        <!-- Display Items -->
+        <div class="item">
+
+            <ul>
+                <li ng-repeat="item in items">
+                    <div ng-hide="item.editing">
+                        <span>{{ item.name }} - {{ item.description }}</span>
+                        <button ng-click="editItem(item)">Edit</button>
+                        <button ng-click="showDeleteConfirmation(item)">Delete</button>
+                    </div>
+                    <div ng-show="item.editing">
+                        <input type="text" ng-model="item.updatedName" required>
+                        <input type="text" ng-model="item.updatedDescription" required>
+                        <button ng-click="saveItem(item)">Save</button>
+                    </div>
+                    <!-- Delete Confirmation Dialog -->
+                    <div ng-show="item.showConfirmation">
+                        <span>Are you sure you want to delete {{ item.name }}?</span>
+                        <button ng-click="deleteItem(item)">Yes</button>
+                        <button ng-click="cancelDelete(item)">No</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div ng-show="error" class="error-message">{{ error }}</div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="mockData.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
