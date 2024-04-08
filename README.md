@@ -1,4 +1,4 @@
-**Angular CRUD App**
+# Angular CRUD App
 
 ## Features
 
